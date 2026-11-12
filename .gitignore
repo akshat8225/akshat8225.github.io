@@ -1,0 +1,8 @@
+# Never upload these
+designs/
+*backup*/
+*.psd
+.DS_Store
+node_modules/
+.claude/
+.playwright-cli/

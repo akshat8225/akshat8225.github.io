@@ -1,0 +1,192 @@
+@font-face { font-family: "Libron"; src: url(fonts/libron-regular.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Libron"; src: url(fonts/libron-italic.woff2) format("woff2"); font-style: italic; font-display: swap; }
+@font-face { font-family: "Anton"; src: url(fonts/anton.woff2) format("woff2"); font-display: swap; }
+
+:root {
+  --bg: #0b0a08;
+  --gold: #d4a640;
+  --text: #ece4d4;
+  --muted: #ece4d4a6;
+  --line: #ece4d422;
+  --head: "Anton", Impact, "Arial Narrow", sans-serif;
+  --body: "Libron", Georgia, "Times New Roman", serif;
+  --ease: cubic-bezier(.22, 1, .36, 1); /* the one motion curve: quick start, soft landing, no bounce */
+  --max: 1440px;                         /* widest the content gets on big screens */
+  --gut: max(clamp(1rem, 5vw, 4rem), calc((100vw - var(--max)) / 2)); /* side margin */
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: clamp(100%, .4vw + .7rem, 118%); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 1.125rem/1.6 var(--body); font-synthesis: none; -webkit-font-smoothing: antialiased; }
+b, strong { font-weight: normal; } /* Libron has no bold */
+a { color: var(--gold); }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, .mark, .btn, .cap em, .contact li > span, .pull, .filter button { font-family: var(--head); font-weight: normal; text-transform: uppercase; letter-spacing: .02em; line-height: 1; }
+h2 { font-size: clamp(2.5rem, 8vw, 5.5rem); color: var(--gold); margin: 0 0 2rem; }
+h3 { font-size: 1.25rem; letter-spacing: .08em; margin: 0 0 1rem; }
+section { padding: 5rem var(--gut); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Film grain: one static noise tile over the whole page, nearly free */
+body::after { content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: .06;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Page mood: near-black at the top, a faint warm storm glow toward the end. Driven by scroll, no JavaScript. */
+@supports (animation-timeline: scroll()) {
+  body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+    background: radial-gradient(130% 70% at 50% 115%, #3b2a0f, transparent 70%);
+    animation: mood linear both; animation-timeline: scroll(root); }
+  @keyframes mood { to { opacity: 1; } }
+}
+
+/* Cursor light (desktop only, switched on by script.js) */
+.glow { position: fixed; top: 0; left: 0; z-index: -1; width: 640px; height: 640px; margin: -320px 0 0 -320px; pointer-events: none;
+  background: radial-gradient(closest-side, #d4a64024, transparent); opacity: 0; transition: opacity .6s var(--ease); }
+.glow.on { opacity: 1; }
+
+/* Nav */
+.nav { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: .9rem var(--gut) 1.4rem; background: linear-gradient(var(--bg) 62%, #0b0a0800); }
+.nav a { text-decoration: none; color: var(--text); }
+.mark { font-size: 1.5rem; color: var(--gold) !important; }
+.nav nav { display: flex; gap: 1.5rem; font-style: italic; }
+.nav nav a:hover { color: var(--gold); }
+
+/* Hero: the door */
+.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4rem;
+  background: linear-gradient(to top, var(--bg) 8%, #0b0a0899 50%, #0b0a0840), url(images/storm.jpg) center / cover; }
+.hero h1 { font-size: clamp(5rem, 24vw, 17rem); color: var(--gold); margin: 0; line-height: .9; }
+.kicker { font-style: italic; margin: 0 0 .5rem; font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
+.stat { margin: .75rem 0 0; font-size: 1.5rem; font-style: italic; }
+.num { font: 3rem/1 var(--head); color: var(--gold); font-style: normal; vertical-align: -.25rem; font-variant-numeric: tabular-nums; }
+.num[role=button] { cursor: pointer; }
+.lede { max-width: 36rem; color: var(--muted); }
+.ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.btn { display: inline-block; padding: .9rem 1.4rem; background: var(--gold); color: var(--bg); text-decoration: none; font-size: 1.1rem; }
+.btn.ghost { background: none; color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+
+/* Intro: the sky before the doors open. Two flashes only, 0.8 s apart (never more than 3 in a second). */
+.intro, .flash { display: none; }
+.play-intro .intro { display: block; position: fixed; inset: 0; z-index: 100; cursor: pointer;
+  background: #000 url(images/storm.jpg) center / cover; animation: fade-out .4s 2.2s var(--ease) forwards; }
+.play-intro .intro::before { content: ""; position: absolute; inset: 0; background: #000; animation: sky 2.6s var(--ease) forwards; }
+.play-intro .intro::after, .flash::after { content: ""; position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(circle at 60% 30%, #fff3d0, #d4a64080 40%, transparent 70%); }
+.play-intro .intro::after { animation: bolts 2.6s var(--ease) forwards; }
+.skip { position: absolute; z-index: 1; right: 1rem; bottom: 1rem; background: #0008; color: var(--text); border: 1px solid var(--line); padding: .5rem 1rem; font: italic 1rem var(--body); cursor: pointer; }
+@keyframes sky   { 0%, 15% { opacity: 1 } 19% { opacity: .35 } 27%, 46% { opacity: .95 } 50% { opacity: .3 } 72%, 100% { opacity: 0 } }
+@keyframes bolts { 0%, 15% { opacity: 0 } 19% { opacity: .85 } 27%, 46% { opacity: 0 } 50% { opacity: .8 } 60%, 100% { opacity: 0 } }
+@keyframes fade-out { to { opacity: 0; visibility: hidden; } }
+
+/* Short lightning when "15+" is clicked: two flashes in 0.6 s, then a cool-down in script.js */
+.flash.go { display: block; position: fixed; inset: 0; z-index: 90; pointer-events: none; }
+.flash.go::after { animation: zap .6s var(--ease) forwards; }
+@keyframes zap { 0% { opacity: 0 } 15% { opacity: .7 } 40% { opacity: 0 } 60% { opacity: .55 } 100% { opacity: 0 } }
+
+/* Headings rise out of a mask, one line at a time (script.js splits the words) */
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; margin-bottom: -.06em; }
+.w > span { display: inline-block; transform: translateY(110%); transition: transform .6s var(--ease) var(--d, 0s); }
+.in .w > span { transform: none; }
+
+/* Filter */
+.filter { display: flex; flex-wrap: wrap; gap: .5rem; margin: -1rem 0 1.75rem; }
+.filter button { background: none; border: 1px solid var(--line); color: var(--muted); padding: .55rem .9rem; font-size: .95rem; letter-spacing: .08em; cursor: pointer; transition: color .3s var(--ease), border-color .3s var(--ease); }
+.filter button:hover { color: var(--text); }
+.filter button[aria-pressed=true] { color: var(--bg); background: var(--gold); border-color: var(--gold); }
+.wall[data-show=client] .poster:not([data-kind=client]),
+.wall[data-show=personal] .poster:not([data-kind=personal]) { display: none; }
+
+/* Poster wall: the floor. Small tiles plus large ones ("poster l") in a set pattern. */
+.wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); grid-auto-flow: dense; gap: 2rem 1.25rem; }
+.poster { display: flex; flex-direction: column; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: zoom-in;
+  transition: transform .4s var(--ease), opacity .4s var(--ease); }
+.poster.l { grid-column: span 2; grid-row: span 2; align-self: start; }
+.art { position: relative; display: block; aspect-ratio: 4 / 5; background: #16130e; box-shadow: 0 12px 30px #0009; }
+.art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; color: transparent; } /* color hides alt text while loading */
+.art::after { content: ""; position: absolute; inset: 0; padding: 1px; pointer-events: none; /* edge light near the cursor */
+  background: radial-gradient(260px circle at var(--x, -999px) var(--y, -999px), #f2d38a, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.cap { display: block; padding: .6rem 0 0; font-style: italic; color: var(--muted); font-size: 1rem; }
+.cap em { display: block; font-style: normal; color: var(--gold); font-size: .8rem; letter-spacing: .12em; margin-bottom: .2rem; }
+@media (hover: hover) { .wall:has(.poster:hover) .poster:not(:hover) { opacity: .55; } }
+
+@media (max-width: 700px) {
+  .wall { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -1rem; padding: 0 1rem 1rem; scrollbar-width: none; align-items: center; }
+  .wall::-webkit-scrollbar { display: none; }
+  .poster { flex: 0 0 64vw; scroll-snap-align: center; }
+  .poster.l { flex-basis: 80vw; }
+  .nav nav { gap: .9rem; font-size: .95rem; }
+}
+
+/* Feature blocks */
+.feature { margin: 5rem 0 0; }
+.feature figcaption p { margin: 0 0 1.5rem; color: var(--muted); }
+
+/* Before / after wipe */
+.compare { position: relative; max-width: 540px; touch-action: pan-y; cursor: ew-resize; user-select: none; --pos: 50%; }
+.compare .top { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare .line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+.compare .line::after { content: "‹ ›"; position: absolute; top: 50%; left: 50%; width: 2.75rem; height: 2.75rem; margin: -1.375rem 0 0 -1.375rem; border-radius: 50%;
+  display: grid; place-items: center; background: var(--bg); border: 2px solid var(--gold); color: var(--gold); font: 1.1rem/1 var(--body); }
+.compare.pulse .line::after { animation: pulse .6s var(--ease); }
+@keyframes pulse { 50% { transform: scale(1.25); } }
+.feature input[type=range] { display: block; width: 100%; max-width: 540px; margin: 1rem 0 0; accent-color: var(--gold); }
+@media (min-width: 900px) {
+  .feature:has(.compare) { display: grid; grid-template-columns: minmax(0, 540px) 1fr; column-gap: 3rem; align-items: center; }
+  .feature:has(.compare) figcaption { grid-area: 1 / 2; }
+  .feature:has(.compare) .compare { grid-area: 1 / 1; }
+}
+
+/* Five-slide strip: the main act. The section pins while page scroll moves it sideways. */
+.pin { height: 220vh; margin-top: 5rem; }
+.pin > .feature { position: sticky; top: 4.5rem; margin: 0; }
+.strip { display: flex; overflow-x: auto; height: min(68vh, 680px); cursor: grab; scrollbar-width: none; margin: 0 calc(-1 * var(--gut)); }
+.strip::-webkit-scrollbar { display: none; }
+.strip:active { cursor: grabbing; }
+.strip img { height: 100%; width: auto; max-width: none; flex: none; user-select: none; }
+.strip img + img { margin-left: -1px; } /* 1px overlap so no hairline can appear at the joins */
+.strip-ui { display: flex; align-items: center; gap: 1.25rem; margin-top: 1rem; color: var(--muted); font-style: italic; font-size: .95rem; }
+.ticks { display: flex; gap: .4rem; }
+.ticks i { width: 1.5rem; height: 2px; background: var(--line); transition: background .3s var(--ease); }
+.ticks i.on { background: var(--gold); }
+.hint { transition: opacity .6s var(--ease); }
+.hint.gone { opacity: 0; }
+@media (max-width: 700px) { .strip { height: auto; } .strip img { width: 100vw; height: auto; } }
+
+/* Story: the late conversation */
+.story p { max-width: 38rem; font-size: clamp(1.15rem, 2.4vw, 1.4rem); line-height: 1.7; }
+.story p:first-of-type::first-line { font-style: italic; color: var(--gold); }
+.pull { margin: 3rem 0; max-width: 16ch; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.02; color: var(--gold); }
+
+/* Contact: last call */
+.contact ul { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.25rem; }
+.contact li { display: grid; gap: .1rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.contact li > span { font-size: .85rem; letter-spacing: .12em; color: var(--muted); }
+.contact a { font-size: clamp(1.25rem, 4vw, 2rem); text-decoration: none; overflow-wrap: anywhere; }
+.contact a:hover { text-decoration: underline; }
+footer { padding: 2rem var(--gut); color: var(--muted); font-style: italic; font-size: .9rem; }
+
+/* Full-screen viewer */
+.viewer { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 1rem; border: 0; background: #000e; color: var(--text); touch-action: pinch-zoom; }
+.viewer::backdrop { background: #000c; }
+.viewer[open] { display: grid; place-items: center; animation: fade .3s var(--ease); }
+.viewer figure { margin: 0; display: grid; gap: .75rem; justify-items: center; }
+.frame { overflow: hidden; }
+.viewer img { max-height: calc(100dvh - 9rem); width: auto; }
+.viewer figcaption { max-width: 36rem; text-align: center; display: grid; gap: .35rem; }
+.count { font: .85rem/1 var(--head); letter-spacing: .14em; color: var(--gold); }
+.note { font-style: italic; color: var(--muted); }
+.viewer button { position: fixed; background: none; border: 0; color: var(--text); font-size: 2.5rem; line-height: 1; cursor: pointer; padding: .25rem .75rem; }
+.close { top: .5rem; right: 1rem; }
+.prev, .next { top: 50%; transform: translateY(-50%); }
+.prev { left: .25rem; } .next { right: .25rem; }
+@keyframes fade { from { opacity: 0; } }
+
+/* Reduce motion: every effect off. Scrolling and swiping still work. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .intro, .flash, .glow, body::before, body::after, .art::after { display: none !important; }
+  .wall .poster { opacity: 1 !important; }
+  .pin { height: auto; }
+  .pin > .feature { position: static; }
+}

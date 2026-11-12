@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akshat — Graphic Designer · Brand Identity</title>
+<meta name="description" content="Akshat is a graphic designer for brand identity, posters and campaigns, with 15+ clients. Available for remote work.">
+<meta name="theme-color" content="#0b0a08">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Link previews (WhatsApp, Instagram, LinkedIn, X) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Akshat">
+<meta property="og:url" content="https://akshat8225.github.io/">
+<meta property="og:title" content="Akshat — Graphic Designer · Brand Identity">
+<meta property="og:description" content="Brand identity, posters and campaigns. 15+ clients. Available for remote work.">
+<meta property="og:image" content="https://akshat8225.github.io/images/storm.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Dark storm clouds split by gold lightning">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://akshat8225.github.io/images/storm.jpg">
+
+<link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/storm.jpg" as="image">
+<link rel="stylesheet" href="style.css">
+<script>
+  // Decide before the page paints: play the intro only once per visit, and never for reduced motion.
+  try {
+    if (!sessionStorage.intro && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('play-intro');
+    }
+    sessionStorage.intro = 1;
+  } catch (e) {}
+</script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="intro" aria-hidden="true"><button type="button" class="skip" tabindex="-1">Skip</button></div>
+<div class="flash" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="nav">
+  <a href="#top" class="mark">Akshat</a>
+  <nav aria-label="Main"><a href="#work">Selected Work</a><a href="#story">My Story</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main>
+  <section id="top" class="hero">
+    <p class="kicker">Graphic designer &middot; Brand identity</p>
+    <h1 class="reveal">Akshat</h1>
+    <p class="stat"><span class="num">15+</span> clients</p>
+    <p class="lede">Posters, logos and campaigns for clubs, cafes, fashion and jewellery brands, and artists. <i>Video and motion too.</i></p>
+    <p class="ctas"><a href="#work" class="btn">See the work</a><a href="#contact" class="btn ghost">Get in touch</a></p>
+  </section>
+
+  <section id="work">
+    <h2 class="reveal">Selected work</h2>
+
+    <div class="filter" role="group" aria-label="Show">
+      <button type="button" data-show="all" aria-pressed="true">All</button>
+      <button type="button" data-show="client" aria-pressed="false">Client work</button>
+      <button type="button" data-show="personal" aria-pressed="false">Personal concept</button>
+    </div>
+
+    <!-- The poster wall. "poster l" = large tile. Replace [NOTE] with your own words; [NOTE] or empty is never shown. -->
+    <div class="wall" data-show="all">
+      <button class="poster l" data-kind="client" data-full="images/work-01.webp" data-note="[NOTE]"><span class="art"><img src="images/work-01-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Concert poster: a singer in orange sunglasses framed by a sweeping copper ring, with the date and city in bold type"></span><span class="cap"><em>Client work</em>Concert poster</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-16.webp" data-note="[NOTE]"><span class="art"><img src="images/work-16-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Logo: a gold phoenix with spread wings above a gold wordmark, on a dark panel"></span><span class="cap"><em>Client work</em>Logo design</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-03.webp" data-note="[NOTE]"><span class="art"><img src="images/work-03-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Event campaign poster: golden tickets flying past a pink sandstone palace, announcing early-bird sales"></span><span class="cap"><em>Client work</em>Event campaign &middot; tickets</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-07.webp" data-note="[NOTE]"><span class="art"><img src="images/work-07-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Cafe social post: a plate of bruschetta on black, under a bold white headline"></span><span class="cap"><em>Client work</em>Cafe menu post</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-04.webp" data-note="[NOTE]"><span class="art"><img src="images/work-04-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Event campaign poster: a crimson ticket box opening to reveal the performer and the date"></span><span class="cap"><em>Client work</em>Event campaign &middot; reveal</span></button>
+      <button class="poster l" data-kind="personal" data-full="images/work-09.webp" data-note="[NOTE]"><span class="art"><img src="images/work-09-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Personal concept poster for Travis Scott: grainy halftone portraits on cobalt blue with yellow condensed type"></span><span class="cap"><em>Personal concept</em>Travis Scott</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-05.webp" data-note="[NOTE]"><span class="art"><img src="images/work-05-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Event campaign poster: the performer between torn-paper views of palace architecture, with the date in large type"></span><span class="cap"><em>Client work</em>Event campaign &middot; date</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-08.webp" data-note="[NOTE]"><span class="art"><img src="images/work-08-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Cafe social post: a latte on a wooden table with a big yellow headline announcing round-the-clock opening"></span><span class="cap"><em>Client work</em>Cafe opening hours</span></button>
+      <button class="poster" data-kind="personal" data-full="images/work-12.webp" data-note="[NOTE]"><span class="art"><img src="images/work-12-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Personal concept poster for Kid Cudi: a man smoking under a full moon, with stacked vertical type"></span><span class="cap"><em>Personal concept</em>Kid Cudi</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-06.webp" data-note="[NOTE]"><span class="art"><img src="images/work-06-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Event campaign poster: an ornate red and gold ticket box at sunset, announcing early-bird tickets are live"></span><span class="cap"><em>Client work</em>Event campaign &middot; reminder</span></button>
+      <button class="poster l" data-kind="personal" data-full="images/work-13.webp" data-note="[NOTE]"><span class="art"><img src="images/work-13-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Collage poster titled Kudrat in Hindi: two tigers among roses, peacock feathers and a sun face on deep teal"></span><span class="cap"><em>Personal concept</em>Kudrat</span></button>
+      <button class="poster" data-kind="personal" data-full="images/work-10.webp" data-note="[NOTE]"><span class="art"><img src="images/work-10-s.webp" width="600" height="600" loading="lazy" decoding="async" style="object-position: left" alt="Personal concept artwork for Ye: three figures in white emerging from mountain fog under a beam of light"></span><span class="cap"><em>Personal concept</em>Ye</span></button>
+      <button class="poster" data-kind="personal" data-full="images/work-11.webp" data-note="[NOTE]"><span class="art"><img src="images/work-11-s.webp" width="600" height="750" loading="lazy" decoding="async" alt="Experimental black and white poster: a monstrous figure bound in chains and spider webs, with a blood-red numeral five"></span><span class="cap"><em>Personal concept</em>Experimental</span></button>
+      <button class="poster" data-kind="client" data-full="images/work-02.webp" data-note="[NOTE]"><span class="art"><img src="images/work-02-s.webp" width="600" height="1067" loading="lazy" decoding="async" style="object-position: top" alt="Tall story version of the concert poster, laid out for a phone screen"></span><span class="cap"><em>Client work</em>Concert poster &middot; story</span></button>
+    </div>
+
+    <figure class="feature">
+      <figcaption><h3 class="reveal">One design, two versions</h3><p><i>Drag across the poster</i> to wipe between them.</p></figcaption>
+      <div class="compare">
+        <img src="images/work-15.webp" width="1080" height="1350" loading="lazy" decoding="async" alt="Version two: collage portrait with pink and red butterflies and torn paper">
+        <img src="images/work-14.webp" width="1080" height="1350" loading="lazy" decoding="async" alt="Version one: the same collage portrait in orange, with monarch butterflies and leopard print" class="top">
+        <span class="line" aria-hidden="true"></span>
+      </div>
+      <input type="range" min="0" max="100" value="50" aria-label="Wipe between version one and version two">
+    </figure>
+
+    <div class="pin">
+    <figure class="feature">
+      <figcaption><h3 class="reveal">One carousel, five slides</h3><p>Built to be swiped as one continuous picture.</p></figcaption>
+      <div class="strip" tabindex="0" aria-label="Five-slide event carousel shown as one strip. Use arrow keys to move.">
+        <img src="images/strip-1.webp" width="1080" height="1350" loading="lazy" decoding="async" draggable="false" alt="Slide 1 of 5: an illustrated host in a pink turban holds up the event ticket, early-bird deadline below">
+        <img src="images/strip-2.webp" width="1080" height="1350" loading="lazy" decoding="async" draggable="false" alt="Slide 2 of 5: an illustrated woman in a pink veil gestures toward the ticket, with a line about prices rising">
+        <img src="images/strip-3.webp" width="1080" height="1350" loading="lazy" decoding="async" draggable="false" alt="Slide 3 of 5: the host scratches his head, with a line about forgetting to book">
+        <img src="images/strip-4.webp" width="1080" height="1350" loading="lazy" decoding="async" draggable="false" alt="Slide 4 of 5: the woman points, with a speech bubble urging viewers to book today">
+        <img src="images/strip-5.webp" width="1080" height="1350" loading="lazy" decoding="async" draggable="false" alt="Slide 5 of 5: both characters wave under the closing line, with the date and where to get tickets">
+      </div>
+      <div class="strip-ui" aria-hidden="true"><span class="ticks"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="hint">Scroll, drag or swipe</span></div>
+    </figure>
+    </div>
+  </section>
+
+  <section id="story" class="story">
+    <h2 class="reveal">My story</h2>
+    <p>I grew up online, earlier than most people around me. Where I’m from, not many people were tuned in to internet culture, so I spent a lot of time on the other side of that gap. I was obsessed with films, music and art, and with the idea of making something that was entirely mine.</p>
+    <p>When I was fourteen, the pandemic pushed everyone onto screens. I was already there. That early access taught me taste: what stops a thumb on a poster, what makes a brand feel expensive, what makes a night feel like an event before it starts. I know that access was a privilege, and I’ve tried to use it properly.</p>
+    <!-- Pull-quote: a line copied word for word from the paragraph above. Hidden from screen readers so it isn't read twice. -->
+    <blockquote class="pull reveal" aria-hidden="true">what makes a night feel like an event before it starts.</blockquote>
+    <p>I’m at my best when an idea in my head becomes something people can see in the real world. When I get into the zone, I learn fast. For the last two years I’ve used that to design for clubs, cafes, fashion and jewellery brands, and artists. Wherever the work involves creative thinking, curation or art, that’s where I want to be.</p>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="reveal">Contact</h2>
+    <p class="lede"><i>Open to remote projects and roles.</i></p>
+    <ul>
+      <li><span>Email</span><a href="mailto:kzt.bzns@proton.me">kzt.bzns@proton.me</a></li>
+      <li><span>Instagram</span><a href="https://www.instagram.com/vidakshat/" target="_blank" rel="noopener">@vidakshat</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/akshat-sharma-a5363b32b/" target="_blank" rel="noopener">Akshat Sharma</a></li>
+      <li><span>Phone</span><a href="tel:+917023552089">+91 7023552089</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>&copy; Akshat</footer>
+
+<dialog class="viewer" aria-label="Full-screen view">
+  <button type="button" class="close" aria-label="Close">&times;</button>
+  <button type="button" class="prev" aria-label="Previous piece">&lsaquo;</button>
+  <button type="button" class="next" aria-label="Next piece">&rsaquo;</button>
+  <figure><div class="frame"><img alt="" draggable="false"></div><figcaption><span class="count"></span><span class="note"></span></figcaption></figure>
+</dialog>
+
+</body>
+</html>
